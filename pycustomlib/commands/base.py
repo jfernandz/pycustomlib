@@ -9,10 +9,7 @@ class Base:
     """
 
     def __init__(self):
-        self._ip = None
         self._system = None
-        self._ssh = None
-        self._sftp = None
 
     def exec_command(self, command):
         """

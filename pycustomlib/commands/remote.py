@@ -18,11 +18,10 @@ class Remote(Base):
     """
 
     def __init__(self, ip_addr):
+        super().__init__()
         self._ip = ip_addr
         self._ssh = None
-        self._system = None
         self._sftp = None
-        #super().__init__()
 
     def exec_command(self, command):
         """
@@ -105,7 +104,7 @@ class Remote(Base):
             logger.error('Client with %s is not connected', self._ip)
         except (TimeoutError, socket_timeout):
             logger.error('Client with %s has no SSH enabled', self._ip)
-        except Exception as ex:
+        except Exception as ex:  # pylint: disable=W
             logger.exception(ex)
         else:
             return ssh, system

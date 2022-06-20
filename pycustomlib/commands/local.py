@@ -16,8 +16,8 @@ class Local(Base):
     """
 
     def __init__(self):
+        super().__init__()
         self._system = system()
-        # super().__init__()
 
     def exec_command(self, command):
         """
