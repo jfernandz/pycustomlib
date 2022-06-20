@@ -21,6 +21,7 @@ if __name__ == "__main__":
     sys1 = Local()
     print(sys1.free())
 
+    sys2 = None
     user_name = os.environ.get('UNAME', None)
     user_pwd = os.environ.get("UPASS", None)
     host_ip = os.environ.get("HIP", None)

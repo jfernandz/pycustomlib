@@ -1,7 +1,7 @@
 """
     Module docstring
 """
-from logging import getLogger
+from logging import getLogger, ERROR
 from socket import timeout as socket_timeout
 
 from paramiko import SSHClient, AutoAddPolicy
@@ -10,7 +10,7 @@ from paramiko.ssh_exception import AuthenticationException, NoValidConnectionsEr
 from .base import Base
 
 logger = getLogger(__package__)
-
+getLogger("paramiko").setLevel(ERROR)
 
 class Remote(Base):
     """
@@ -31,7 +31,7 @@ class Remote(Base):
 
         logger.info("Running the remote command: %s at %s", command, self._ip)
         _, stdout, _ = self._ssh.exec_command(command)
-        stdout = stdout.decode('utf-8').strip()
+        stdout = stdout.read().decode('utf-8').strip()
         return stdout
 
     def connect(self, username=None, password=None, key=None, port=22, timeout=1):
@@ -96,7 +96,6 @@ class Remote(Base):
             _, stdout, _ = ssh.exec_command(
                 "python -c 'from platform import system; print(system())'"
                 )
-            logger.info(stdout.read().decode('utf-8').strip())
             system = stdout.read().decode('utf-8').strip()
             logger.info("system is %s", system)
             logger.info("ssh is %s", ssh)
